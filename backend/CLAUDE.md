@@ -15,24 +15,29 @@
 ### Backend
 
 ```bash
-# Install dependencies
+# Install dependencies (creates/updates the Poetry-managed venv)
 cd backend
-pip install -r requirements.txt
+poetry install
 
 # Run the dev server
-uvicorn app.main:app --reload
+poetry run uvicorn app.main:app --reload
 
 # Run tests
-pytest
+poetry run pytest
 
 # Run tests with coverage
-pytest --cov=app --cov-report=term-missing
+poetry run pytest --cov=app --cov-report=term-missing
+
+# Lint
+poetry run ruff check .
 
 # Database migrations (Alembic)
-alembic revision --autogenerate -m "description"   # Create a new migration
-alembic upgrade head                                # Apply migrations
-alembic downgrade -1                                # Roll back one migration
+poetry run alembic revision --autogenerate -m "description"   # Create a new migration
+poetry run alembic upgrade head                                # Apply migrations
+poetry run alembic downgrade -1                                # Roll back one migration
 ```
+
+Dependency management is done via Poetry (`pyproject.toml` + `poetry.lock`), not `requirements.txt`. Add a runtime dependency with `poetry add <package>`, a dev-only dependency with `poetry add --group dev <package>`.
 
 ## Structure du projet
 
@@ -41,7 +46,8 @@ allergene_qr_generator/
 ├── CLAUDE.md
 ├── .gitignore
 └── backend/
-    ├── requirements.txt
+    ├── pyproject.toml
+    ├── poetry.lock
     ├── alembic.ini
     ├── alembic/                    # Migrations de base de données
     │   ├── env.py
