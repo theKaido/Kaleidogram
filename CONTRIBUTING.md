@@ -8,9 +8,54 @@ Thanks for your interest in contributing. This document describes how to set up 
 - **PostgreSQL**: no specific version is pinned in the repo. Any recent PostgreSQL version (14+) should work.
 - **Node.js**: not applicable yet. The frontend (React + Vite + TypeScript) has not been initialized. This section will be updated once it exists.
 
-There is no `docker-compose.yml` in the repo yet, so setup below is direct/local (no containers).
+The project has a `docker-compose.yaml` at the repo root (backend + PostgreSQL). This is the recommended way to run the project locally — see [Docker setup](#docker-setup) below. A direct/local setup without containers is also documented further down for reference.
 
-## Local setup
+## Docker setup
+
+Prerequisites: Docker and Docker Compose (Docker Desktop on macOS/Windows).
+
+1. Clone the repository:
+
+   ```bash
+   git clone git@github.com:theKaido/kaleidogram.git
+   cd kaleidogram
+   ```
+
+2. Create a `.env` file at the repo root (next to `docker-compose.yaml`) with the following variables:
+
+   ```bash
+   POSTGRES_USER=<user>
+   POSTGRES_PASSWORD=<password>
+   POSTGRES_DB=<db-name>
+   JWT_SECRET_KEY=<your-secret-key>
+   JWT_ALGORITHM=HS256
+   JWT_ACCESS_TOKEN_EXPIRE_MINUTES=30
+   ```
+
+3. Start the stack:
+
+   ```bash
+   docker compose up
+   ```
+
+   This builds the backend image, starts PostgreSQL (with a healthcheck gating backend startup), runs Alembic migrations, then starts the dev server with `--reload`. The `backend/` folder is bind-mounted into the container, so code changes on the host are picked up live.
+
+The API is then available at `http://localhost:8000` (`/docs` for the interactive Swagger UI).
+
+To rebuild the image after changing `pyproject.toml`/`poetry.lock` or the `Dockerfile`:
+
+```bash
+docker compose build backend
+docker compose up
+```
+
+To reset the database (wipes all data):
+
+```bash
+docker compose down -v
+```
+
+## Local setup (without Docker)
 
 1. Clone the repository:
 
