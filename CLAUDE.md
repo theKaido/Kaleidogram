@@ -21,7 +21,7 @@ This is a learning project. Priority is deep understanding by the author, not de
 
 ## License
 
-Released under the Apache License 2.0, as a learning project and open source contribution.
+Released under the GNU Affero General Public License v3.0 (AGPL-3.0), as a learning project and open source contribution.
 
 ## Tech stack
 
