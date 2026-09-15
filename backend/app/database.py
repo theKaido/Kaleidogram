@@ -1,7 +1,8 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
-import os 
+import os
+
 from dotenv import load_dotenv
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, sessionmaker
 
 load_dotenv()
 
@@ -13,6 +14,12 @@ Base = declarative_base()
 
 
 def get_db():
+    """Yield a SQLAlchemy session for the duration of a request.
+
+    Yields:
+        A database session, closed automatically once the request completes.
+
+    """
     db = SessionLocal()
     try:
         yield db

@@ -1,8 +1,11 @@
+from sqlalchemy import Column, ForeignKey, Integer, String
+
 from app.database import Base
-from sqlalchemy import Integer, Column, ForeignKey, String
 
 
 class Restaurant(Base):
+    """Class representing Restaurant table."""
+
     __tablename__ = "restaurant"
     id = Column(Integer, primary_key=True)
     nom = Column(String, nullable=False)

@@ -1,8 +1,11 @@
+from sqlalchemy import Column, ForeignKey, Integer, String
+
 from app.database import Base
-from sqlalchemy import Column, Integer, String, ForeignKey
 
 
 class Plat(Base):
+    """Class representing Plat table."""
+
     __tablename__ = "plat"
     id = Column(Integer, primary_key=True)
     nom = Column(String, nullable=False)

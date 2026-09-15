@@ -23,6 +23,18 @@ dependencies = [
 [tool.poetry]
 package-mode = false
 
+[tool.ruff.lint]
+extend-select = ["D"]
+ignore = ["D100", "D104", "D203", "D213"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends"]
+
+[tool.ruff]
+extend-exclude = ["alembic/"]
+force-exclude = true
+
+
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"

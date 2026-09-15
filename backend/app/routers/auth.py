@@ -1,31 +1,54 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 
 from app.dependencies.auth import CurrentUser
 from app.dependencies.database import DbSession
 from app.models.auth import Auth
 from app.schemas.auth import Authentification, PasswordUpdate
-from app.utils.security import verify_password, hash_password, create_access_token
+from app.utils.security import create_access_token, hash_password, verify_password
 
 router = APIRouter()
 
 
 @router.get("/authentification")
 def get_all_user(db: DbSession):
+    """Return the id and login of every registered user.
+
+    Args:
+        db: Database session.
+
+    Returns:
+        List of (id, login) pairs.
+
+    """
     return db.query(Auth.id, Auth.login).all()
 
 
 @router.post("/authentification")
 def create_new_user(db: DbSession, body: Authentification):
+    """Register a new user account.
+
+    Args:
+        db: Database session.
+        body: Login, password and email for the new account.
+
+    Returns:
+        The created user.
+
+    Raises:
+        HTTPException: If the login is already taken.
+
+    """
     user = db.query(Auth).filter(Auth.login == body.login).first()
     if user is not None:
         raise HTTPException(status_code=409, detail="Utilisateur deja présent")
-    user = Auth(login=body.login, password=hash_password(body.password), email=body.email)
+    user = Auth(
+        login=body.login, password=hash_password(body.password), email=body.email
+    )
     db.add(user)
     db.commit()
     db.refresh(user)
     return user
-
 
 
 @router.post("/login")
@@ -33,6 +56,19 @@ def login(
     db: DbSession,
     form_data: OAuth2PasswordRequestForm = Depends(),
 ):
+    """Authenticate a user and issue a JWT access token.
+
+    Args:
+        db: Database session.
+        form_data: OAuth2 form data containing the login and password.
+
+    Returns:
+        A bearer access token.
+
+    Raises:
+        HTTPException: If the login or password is incorrect.
+
+    """
     user = db.query(Auth).filter(Auth.login == form_data.username).first()
     if user is None:
         raise HTTPException(status_code=401, detail="Login ou mot de passe incorrect")
@@ -41,9 +77,26 @@ def login(
     token = create_access_token({"auth_id": user.id})
     return {"access_token": token, "token_type": "bearer"}
 
+
 @router.put("/authentification/password")
 def update_password(db: DbSession, body: PasswordUpdate, current_user: CurrentUser):
-    if not verify_password(plain_password=body.current_password, hashed_password=current_user.password):
+    """Change the password of the authenticated user.
+
+    Args:
+        db: Database session.
+        body: Current and new password.
+        current_user: Authenticated user whose password is being changed.
+
+    Returns:
+        A confirmation message.
+
+    Raises:
+        HTTPException: If the current password is incorrect.
+
+    """
+    if not verify_password(
+        plain_password=body.current_password, hashed_password=current_user.password
+    ):
         raise HTTPException(status_code=401, detail="Mot de passe incorrect")
     current_user.password = hash_password(body.new_password)
     db.commit()
