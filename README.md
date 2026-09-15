@@ -114,7 +114,7 @@ Kaleidogram is released under the AGPL v3 license. You can use it for free, self
 
 Backend, Python 3.14, FastAPI, SQLAlchemy, PostgreSQL 18, Alembic, JWT authentication.
 Frontend, React with Vite and TypeScript (in progress).
-Infrastructure, Docker, GitLab CI/CD, Supabase.
+Infrastructure, Docker, Github action, Supabase.
 
 ## Contributing
 
