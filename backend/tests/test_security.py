@@ -15,4 +15,3 @@ def test_hash_password():
     hashed_2 = hash_password("tests")
     assert hashed_1 != "tests"
     assert hashed_1 != hashed_2
-

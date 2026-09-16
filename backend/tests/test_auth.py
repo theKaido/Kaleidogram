@@ -30,7 +30,11 @@ def test_login(client_fastapi):
     """Test POST /auth/login, success and wrong credentials."""
     client_fastapi.post(
         "/auth/authentification",
-        json={"login": "login_user", "password": "azerty", "email": "login_user@test.com"},
+        json={
+            "login": "login_user",
+            "password": "azerty",
+            "email": "login_user@test.com",
+        },
     )
 
     response = client_fastapi.post(

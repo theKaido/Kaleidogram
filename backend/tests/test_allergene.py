@@ -16,7 +16,9 @@ def test_get_allergene(authenticated_test_client):
 
 def test_create_allergene(authenticated_test_client):
     """Test that POST /allergenes/allergene creates an allergene."""
-    response = authenticated_test_client.post("/allergenes/allergene", json={"nom": "test"})
+    response = authenticated_test_client.post(
+        "/allergenes/allergene", json={"nom": "test"}
+    )
     assert response.status_code == 200
     assert response.json()["nom"] == "test"
 

@@ -12,16 +12,20 @@ POSTGRES_USER = os.environ.get("POSTGRES_USER")
 POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
 POSTGRES_DB = os.environ.get("POSTGRES_DB")
 
+
 class Config:
     """Create config class with environment variables."""
 
     SQLALCHEMY_DATABASE_URI = (
-            "postgresql://"
-            + POSTGRES_USER + ":"
-            + POSTGRES_PASSWORD
-            + "@localhost/" + POSTGRES_DB
+        "postgresql://"
+        + POSTGRES_USER
+        + ":"
+        + POSTGRES_PASSWORD
+        + "@localhost/"
+        + POSTGRES_DB
     )
     TESTING = True
+
 
 @pytest.fixture(scope="session")
 def db_engine_testing():
@@ -37,8 +41,10 @@ def db_engine_testing():
     """
     admin_url = Config.SQLALCHEMY_DATABASE_URI
     admin_engine = create_engine(admin_url)
-    admin_connection = admin_engine.connect().execution_options(isolation_level="AUTOCOMMIT")
-    database_test = POSTGRES_DB + '_test'
+    admin_connection = admin_engine.connect().execution_options(
+        isolation_level="AUTOCOMMIT"
+    )
+    database_test = POSTGRES_DB + "_test"
     exists = admin_connection.execute(
         text("SELECT 1 FROM pg_database WHERE datname = :name"),
         {"name": database_test},
@@ -47,7 +53,7 @@ def db_engine_testing():
         admin_connection.execute(text(f"CREATE DATABASE {database_test}"))
     admin_connection.close()
     admin_engine.dispose()
-    config_test = admin_url + '_test'
+    config_test = admin_url + "_test"
     engine = create_engine(config_test)
     Base.metadata.create_all(engine)
     yield engine
@@ -73,7 +79,8 @@ def test_db(db_engine_testing):
         autocommit=False,
         autoflush=False,
         bind=connection,
-        join_transaction_mode="create_savepoint")
+        join_transaction_mode="create_savepoint",
+    )
     session = testing_session()
     try:
         yield session
@@ -94,6 +101,7 @@ def client_fastapi(test_db):
         A starlette TestClient wired to the test database, unauthenticated.
 
     """
+
     def override_get_db():
         yield test_db
 
@@ -142,6 +150,7 @@ def second_authenticated_test_client(test_db):
         returned by authenticated_test_client.
 
     """
+
     def override_get_db():
         yield test_db
 

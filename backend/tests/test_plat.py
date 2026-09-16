@@ -48,7 +48,11 @@ def test_update_plat(authenticated_test_client, create_plat):
 
     response = authenticated_test_client.put(
         f"/plats/plat/{plat_id}",
-        json={"nom": "updated_name", "categorie": "dessert", "id_restaurant": id_restaurant},
+        json={
+            "nom": "updated_name",
+            "categorie": "dessert",
+            "id_restaurant": id_restaurant,
+        },
     )
     assert response.status_code == 200
     assert response.json()["nom"] == "updated_name"
@@ -56,7 +60,11 @@ def test_update_plat(authenticated_test_client, create_plat):
 
     response = authenticated_test_client.put(
         "/plats/plat/-100",
-        json={"nom": "updated_name", "categorie": "dessert", "id_restaurant": id_restaurant},
+        json={
+            "nom": "updated_name",
+            "categorie": "dessert",
+            "id_restaurant": id_restaurant,
+        },
     )
     assert response.status_code == 404
 

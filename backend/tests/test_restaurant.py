@@ -48,7 +48,9 @@ def test_delete_restaurant(authenticated_test_client, create_restaurant):
     """Test DELETE /restaurants/restaurant/{id}, and confirm the deletion sticks."""
     restaurant_id = create_restaurant.json()["id"]
 
-    response = authenticated_test_client.delete(f"/restaurants/restaurant/{restaurant_id}")
+    response = authenticated_test_client.delete(
+        f"/restaurants/restaurant/{restaurant_id}"
+    )
     assert response.status_code == 200
     assert response.json() == {"message": "Restaurant supprimé"}
 
@@ -71,11 +73,15 @@ def test_restaurant_ownership_isolation(
     """
     restaurant_id = create_restaurant.json()["id"]
 
-    response = second_authenticated_test_client.get(f"/restaurants/restaurant/{restaurant_id}")
+    response = second_authenticated_test_client.get(
+        f"/restaurants/restaurant/{restaurant_id}"
+    )
     assert response.status_code == 404
 
     response = second_authenticated_test_client.get("/restaurants/restaurant")
     assert restaurant_id not in [r["id"] for r in response.json()]
 
-    response = second_authenticated_test_client.delete(f"/restaurants/restaurant/{restaurant_id}")
+    response = second_authenticated_test_client.delete(
+        f"/restaurants/restaurant/{restaurant_id}"
+    )
     assert response.status_code == 404

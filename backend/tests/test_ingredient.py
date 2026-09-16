@@ -4,7 +4,9 @@ import pytest
 @pytest.fixture
 def create_ingredient(authenticated_test_client):
     """Create a new ingredient via the API and return the response."""
-    return authenticated_test_client.post("/ingredients/ingredient", json={"nom": "test"})
+    return authenticated_test_client.post(
+        "/ingredients/ingredient", json={"nom": "test"}
+    )
 
 
 def test_get_ingredient(authenticated_test_client):
@@ -16,7 +18,9 @@ def test_get_ingredient(authenticated_test_client):
 
 def test_create_ingredient(authenticated_test_client):
     """Test that POST /ingredients/ingredient creates an ingredient."""
-    response = authenticated_test_client.post("/ingredients/ingredient", json={"nom": "test"})
+    response = authenticated_test_client.post(
+        "/ingredients/ingredient", json={"nom": "test"}
+    )
     assert response.status_code == 200
     assert response.json()["nom"] == "test"
 
@@ -53,7 +57,9 @@ def test_delete_ingredient(authenticated_test_client, create_ingredient):
     """Test DELETE /ingredients/ingredient/{id}, and confirm the deletion sticks."""
     ingredient_id = create_ingredient.json()["id"]
 
-    response = authenticated_test_client.delete(f"/ingredients/ingredient/{ingredient_id}")
+    response = authenticated_test_client.delete(
+        f"/ingredients/ingredient/{ingredient_id}"
+    )
     assert response.status_code == 200
     assert response.json() == {"message": "Ingredient supprimé"}
 

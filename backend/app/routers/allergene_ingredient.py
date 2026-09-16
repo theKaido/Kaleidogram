@@ -86,11 +86,15 @@ def add_new_allergene_for_ingredient(
     if check_plat is None:
         raise HTTPException(status_code=404, detail="Plat inexistant")
 
-    check_ingredient = db.query(Ingredient).filter(Ingredient.id == new_id_ingredient).first()
+    check_ingredient = (
+        db.query(Ingredient).filter(Ingredient.id == new_id_ingredient).first()
+    )
     if check_ingredient is None:
         raise HTTPException(status_code=404, detail="Ingredient inexistant")
 
-    check_allergene = db.query(Allergene).filter(Allergene.id == new_id_allergene).first()
+    check_allergene = (
+        db.query(Allergene).filter(Allergene.id == new_id_allergene).first()
+    )
     if check_allergene is None:
         raise HTTPException(status_code=404, detail="Allergene inexistant")
 
