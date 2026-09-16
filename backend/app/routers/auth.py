@@ -21,7 +21,8 @@ def get_all_user(db: DbSession):
         List of (id, login) pairs.
 
     """
-    return db.query(Auth.id, Auth.login).all()
+    user_list = db.query(Auth.id, Auth.login).all()
+    return [{"id": user.id, "login": user.login} for user in user_list]
 
 
 @router.post("/authentification")
