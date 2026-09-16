@@ -4,6 +4,7 @@ from app.dependencies.auth import CurrentUser
 from app.dependencies.database import DbSession
 from app.models.allergene import Allergene
 from app.models.allergeneingredient import AllergeneIngredient
+from app.models.ingredient import Ingredient
 from app.models.plat import Plat
 from app.models.restaurant import Restaurant
 from app.schemas.allergene_ingredient import AllergeneIngredientClass
@@ -85,12 +86,19 @@ def add_new_allergene_for_ingredient(
     if check_plat is None:
         raise HTTPException(status_code=404, detail="Plat inexistant")
 
+    check_ingredient = db.query(Ingredient).filter(Ingredient.id == new_id_ingredient).first()
+    if check_ingredient is None:
+        raise HTTPException(status_code=404, detail="Ingredient inexistant")
+
+    check_allergene = db.query(Allergene).filter(Allergene.id == new_id_allergene).first()
+    if check_allergene is None:
+        raise HTTPException(status_code=404, detail="Allergene inexistant")
+
     all_ingr = (
         db.query(AllergeneIngredient)
         .filter(
             AllergeneIngredient.id_allergene == new_id_allergene,
-            AllergeneIngredient.id_ingredient
-            == new_id_ingredient,  # ← n'oublie pas celui-là
+            AllergeneIngredient.id_ingredient == new_id_ingredient,
             AllergeneIngredient.id_plat == new_id_plat,
         )
         .first()
