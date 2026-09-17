@@ -57,6 +57,8 @@ Un kaléidoscope génère une infinité de motifs uniques à partir d'un même p
 
 Kaléidogram est distribué sous licence AGPL v3. Vous pouvez l'utiliser gratuitement, l'installer chez vous, le modifier. La seule contrainte, toute modification que vous publiez ou hébergez pour d'autres doit rester ouverte et partagée. C'est un choix assumé en faveur du logiciel libre.
 
+[LICENCE](./LICENSE)
+
 ---
 
 ## English
@@ -107,14 +109,29 @@ A kaleidoscope creates endless unique patterns from a single principle. Kaleidog
 ### License
 
 Kaleidogram is released under the AGPL v3 license. You can use it for free, self-host it, and modify it. The only requirement, any modification you publish or host for others must remain open and shared. A deliberate choice in favor of free software.
-
+[LICENSE](./LICENSE)
 ---
 
 ## Tech stack
 
 Backend, Python 3.14, FastAPI, SQLAlchemy, PostgreSQL 18, Alembic, JWT authentication.
 Frontend, React with Vite and TypeScript (in progress).
-Infrastructure, Docker, Github action, Supabase.
+Infrastructure, Docker, Github action, Supabase (planned).
+
+## Quick start
+
+Requires Docker and Docker Compose.
+
+```bash
+git clone git@github.com:theKaido/kaleidogram.git
+cd kaleidogram
+cp .env.example .env
+docker compose up
+```
+
+The API is then available at `http://localhost:8000` (`/docs` for the interactive Swagger UI).
+
+For setup without Docker, running tests, linting, and coding conventions, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Contributing
 
