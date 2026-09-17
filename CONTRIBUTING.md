@@ -4,7 +4,7 @@ Thanks for your interest in contributing. This document describes how to set up 
 
 ## Prerequisites
 
-- **Python**: 3.14 (used in the project's local dev virtual environment). No version is pinned via `pyproject.toml` or `.python-version` in the repo yet — 3.11+ should work given the dependency set, but 3.14 is what's actually been used and tested.
+- **Python**: 3.14 (used in the project's local dev virtual environment). Version 3.14 is pinned via `pyproject.toml` 
 - **PostgreSQL**: no specific version is pinned in the repo. Any recent PostgreSQL version (14+) should work.
 - **Node.js**: not applicable yet. The frontend (React + Vite + TypeScript) has not been initialized. This section will be updated once it exists.
 
@@ -57,6 +57,8 @@ docker compose down -v
 
 ## Local setup (without Docker)
 
+Prerequisites: Poetry
+
 1. Clone the repository:
 
    ```bash
@@ -64,27 +66,20 @@ docker compose down -v
    cd kaleidogram/backend
    ```
 
-2. Create and activate a virtual environment:
+2. Install dependencies with poetry (poetry creates a virtual env so you don't need to create one)
 
    ```bash
-   python3 -m venv python_venv
-   source python_venv/bin/activate
+   poetry install
    ```
 
-3. Install dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Make sure PostgreSQL is running locally. If you don't have a running instance, start one, for example:
+3. Make sure PostgreSQL is running locally. If you don't have a running instance, start one, for example:
 
    ```bash
    pg_ctl -D /usr/local/var/postgres start
    createdb kaleidogram
    ```
 
-5. Create your local environment file. There is no `.env.example` committed yet — create `backend/.env` manually with the following variables (all read via `os.getenv` in the codebase):
+4. Create your local environment file. There is no `.env.example` committed yet — create `backend/.env` manually with the following variables (all read via `os.getenv` in the codebase):
 
    ```bash
    DATABASE_URL=postgresql://<user>:<password>@localhost:5432/kaleidogram
@@ -93,16 +88,16 @@ docker compose down -v
    JWT_ACCESS_TOKEN_EXPIRE_MINUTES=30
    ```
 
-6. Apply database migrations:
+5. Apply database migrations:
 
    ```bash
-   alembic upgrade head
+   poetry run alembic upgrade head
    ```
 
-7. Run the dev server:
+6. Run the dev server:
 
    ```bash
-   uvicorn app.main:app --reload
+   poetry run uvicorn app.main:app --reload
    ```
 
 The API is then available at `http://127.0.0.1:8000`.
@@ -112,13 +107,26 @@ The API is then available at `http://127.0.0.1:8000`.
 ```
 kaleidogram/
 ├── CLAUDE.md              # Shared project context
+├── CONTRIBUTING.md
+├── LICENSE
 ├── README.md
+├── docker-compose.yaml
+├── .github/
+│   └── workflows/         # CI: lint, tests, develop-branch checks
+│       ├── develop.yml
+│       ├── lint.yml
+│       └── tests.yml
 ├── backend/
 │   ├── CLAUDE.md          # Backend-specific conventions
-│   ├── requirements.txt
+│   ├── Dockerfile
+│   ├── pyproject.toml
+│   ├── poetry.lock
 │   ├── alembic.ini
 │   ├── alembic/           # Database migrations
 │   │   └── versions/
+│   ├── tests/             # Pytest suite
+│   │   ├── conftest.py
+│   │   └── test_*.py
 │   └── app/
 │       ├── main.py        # FastAPI entry point
 │       ├── database.py    # SQLAlchemy setup
@@ -158,7 +166,7 @@ refactor: extract CurrentUser dependency from auth router
 
 1. Open the PR against `develop`, not `main`.
 2. Write a clear description: what changed and why, not just what.
-3. Make sure the CI is green before requesting review (once CI is configured).
+3. Make sure the CI is green before requesting review.
 4. As the project gains contributors, at least one review will be required before merge. Until then, a self-review of the diff is expected before merging.
 
 ## Code style
@@ -169,15 +177,23 @@ refactor: extract CurrentUser dependency from auth router
 - **Python naming**: snake_case for variables, functions, files, and modules (PEP 8).
 - **URL naming**: kebab-case in API paths (e.g. `/plat-ingredient`).
 - **Imports**: absolute imports from `app.` (e.g. `from app.models.plat import Plat`).
-- **Docstrings**: on public functions and classes when behavior isn't obvious from the signature.
+- **Docstrings**: actually use Google docstring format.
 
-No automated linter or formatter (Ruff, Black, ESLint) is configured in this repo yet. Follow the conventions above by hand until tooling is added.
+Formatter and linter (Ruff) are configured in this repo. Run these to check linting or formatting code with those commands  
+   ```bash
+   poetry run ruff check .
+   poetry run ruff format --check .
+   ```
 
 See [`backend/CLAUDE.md`](backend/CLAUDE.md) for the source of truth on these conventions.
 
 ## Running tests
 
-Tests suite to be added. There is currently no `tests/` directory, `pytest.ini`, or `conftest.py` in the repo.
+Tests have been added and configured via a `conftest.py` file. To run them, use this command:
+   ```bash
+   poetry run pytest
+   ```
+
 
 ## Reporting issues
 
