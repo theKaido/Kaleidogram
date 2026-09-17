@@ -110,6 +110,7 @@ A kaleidoscope creates endless unique patterns from a single principle. Kaleidog
 
 Kaleidogram is released under the AGPL v3 license. You can use it for free, self-host it, and modify it. The only requirement, any modification you publish or host for others must remain open and shared. A deliberate choice in favor of free software.
 [LICENSE](./LICENSE)
+
 ---
 
 ## Tech stack
