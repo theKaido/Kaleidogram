@@ -42,10 +42,23 @@ Dependency management is done via Poetry (`pyproject.toml` + `poetry.lock`), not
 ## Structure du projet
 
 ```
-allergene_qr_generator/
+kaleidogram/
 ├── CLAUDE.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── SECURITY.md
+├── README.md
+├── .env.example
 ├── .gitignore
+├── docker-compose.yaml
+├── .github/
+│   └── workflows/                  # CI: lint, tests, develop-branch checks
+│       ├── develop.yml
+│       ├── lint.yml
+│       └── tests.yml
 └── backend/
+    ├── CLAUDE.md
+    ├── Dockerfile
     ├── pyproject.toml
     ├── poetry.lock
     ├── alembic.ini
@@ -53,6 +66,9 @@ allergene_qr_generator/
     │   ├── env.py
     │   ├── script.py.mako
     │   └── versions/
+    ├── tests/                      # Pytest suite
+    │   ├── conftest.py
+    │   └── test_*.py
     └── app/
         ├── main.py                 # Point d'entrée FastAPI
         ├── database.py             # Configuration SQLAlchemy
