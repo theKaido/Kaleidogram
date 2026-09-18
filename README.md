@@ -109,6 +109,7 @@ A kaleidoscope creates endless unique patterns from a single principle. Kaleidog
 ### License
 
 Kaleidogram is released under the AGPL v3 license. You can use it for free, self-host it, and modify it. The only requirement, any modification you publish or host for others must remain open and shared. A deliberate choice in favor of free software.
+
 [LICENSE](./LICENSE)
 
 ---
@@ -117,7 +118,7 @@ Kaleidogram is released under the AGPL v3 license. You can use it for free, self
 
 Backend, Python 3.14, FastAPI, SQLAlchemy, PostgreSQL 18, Alembic, JWT authentication.
 Frontend, React with Vite and TypeScript (in progress).
-Infrastructure, Docker, Github action, Supabase (planned).
+Infrastructure, Docker, Github Afction, Supabase (planned).
 
 ## Quick start
 

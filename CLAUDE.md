@@ -23,6 +23,8 @@ This is a learning project. Priority is deep understanding by the author, not de
 
 Released under the GNU Affero General Public License v3.0 (AGPL-3.0), as a learning project and open source contribution.
 
+[LICENSE](./LICENSE)
+
 ## Tech stack
 
 - Backend: FastAPI + SQLAlchemy + PostgreSQL, JWT authentication with OAuth2 password flow
@@ -52,7 +54,9 @@ This project follows the Gitflow branching model.
 
 ## Current state
 
-Backend FastAPI started on the `develop` branch, around 35 commits. Frontend to be created. LICENSE and full README to be added. CI to be configured.
+Backend FastAPI started on the `develop` branch. Frontend to be created. 
+
+LICENSE, README and CI are added
 
 ## Project resources
 
