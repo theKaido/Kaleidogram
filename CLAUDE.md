@@ -39,7 +39,9 @@ This project follows the Gitflow branching model.
 
 - `main` branch: stable version only, protected
 - `develop` branch: default integration branch, protected
-- `feature/xxx` branches: one per feature, branched off `develop` and merged back via Pull Request
+- `feat/xxx` branches: one per feature, branched off `develop` and merged back via Pull Request
+- `fix/xxx` branches: one per fix, branched off `develop` and merged back via Pull Request
+- `chore/xxx` branches: one per chore, branched off `develop` and merged back via Pull Request
 - Any change requires a PR, even when working solo
 - The CI must be green before merging
 - Manually review the diff before every merge
