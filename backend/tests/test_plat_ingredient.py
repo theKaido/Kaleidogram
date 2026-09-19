@@ -57,7 +57,9 @@ def test_get_ingredient_for_plat(
         f"/plat-ingredident/plat/{plat_id}/ingredient/{ingredient_id}"
     )
 
-    response = authenticated_test_client.get(f"/plat-ingredident/plat/{plat_id}/ingredient")
+    response = authenticated_test_client.get(
+        f"/plat-ingredident/plat/{plat_id}/ingredient"
+    )
     assert response.status_code == 200
     assert ingredient_id in [i["id_ingredient"] for i in response.json()]
 
@@ -78,7 +80,9 @@ def test_delete_ingredient_from_plat(
     )
     assert response.status_code == 200
 
-    response = authenticated_test_client.get(f"/plat-ingredident/plat/{plat_id}/ingredient")
+    response = authenticated_test_client.get(
+        f"/plat-ingredident/plat/{plat_id}/ingredient"
+    )
     assert ingredient_id not in [i["id_ingredient"] for i in response.json()]
 
     response = authenticated_test_client.delete(
