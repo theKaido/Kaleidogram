@@ -56,7 +56,7 @@ This project follows the Gitflow branching model.
 
 ## Current state
 
-Backend FastAPI started on the `develop` branch. Frontend to be created. 
+Backend FastAPI started on the `develop` branch. Frontend initialized (Vite + React + TypeScript) and running as a service in `docker-compose.yaml`; no feature implemented yet. 
 
 LICENSE, README and CI are added
 
