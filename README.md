@@ -118,7 +118,7 @@ Kaleidogram is released under the AGPL v3 license. You can use it for free, self
 
 Backend, Python 3.14, FastAPI, SQLAlchemy, PostgreSQL 18, Alembic, JWT authentication.
 Frontend, React with Vite and TypeScript (in progress).
-Infrastructure, Docker, Github Afction, Supabase (planned).
+Infrastructure, Docker, GitHub Actions, Supabase (planned).
 
 ## Quick start
 
@@ -131,7 +131,7 @@ cp .env.example .env
 docker compose up
 ```
 
-The API is then available at `http://localhost:8000` (`/docs` for the interactive Swagger UI).
+The API is then available at `http://localhost:8000` (`/docs` for the interactive Swagger UI) and the frontend at `http://localhost:5173`.
 
 For setup without Docker, running tests, linting, and coding conventions, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 

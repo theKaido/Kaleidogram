@@ -6,9 +6,9 @@ Thanks for your interest in contributing. This document describes how to set up 
 
 - **Python**: 3.14 (used in the project's local dev virtual environment). Version 3.14 is pinned via `pyproject.toml` 
 - **PostgreSQL**: no specific version is pinned in the repo. Any recent PostgreSQL version (14+) should work.
-- **Node.js**: not applicable yet. The frontend (React + Vite + TypeScript) has not been initialized. This section will be updated once it exists.
+- **Node.js**: 24 (LTS), the version used by `frontend/Dockerfile`. Vite 8 requires `^20.19.0` or `>=22.12.0`, ESLint 10 requires `^20.19.0`, `^22.13.0` or `>=24`. Only needed for a local setup without Docker.
 
-The project has a `docker-compose.yaml` at the repo root (backend + PostgreSQL). This is the recommended way to run the project locally — see [Docker setup](#docker-setup) below. A direct/local setup without containers is also documented further down for reference.
+The project has a `docker-compose.yaml` at the repo root (backend + frontend + PostgreSQL). This is the recommended way to run the project locally — see [Docker setup](#docker-setup) below. A direct/local setup without containers is also documented further down for reference.
 
 ## Docker setup
 
@@ -38,15 +38,21 @@ Prerequisites: Docker and Docker Compose (Docker Desktop on macOS/Windows).
    docker compose up
    ```
 
-   This builds the backend image, starts PostgreSQL (with a healthcheck gating backend startup), runs Alembic migrations, then starts the dev server with `--reload`. The `backend/` folder is bind-mounted into the container, so code changes on the host are picked up live.
+   This builds the backend and frontend images, starts PostgreSQL (with a healthcheck gating backend startup), runs Alembic migrations, then starts the backend dev server with `--reload` and the Vite dev server. The `backend/` and `frontend/` folders are bind-mounted into their containers, so code changes on the host are picked up live.
 
-The API is then available at `http://localhost:8000` (`/docs` for the interactive Swagger UI).
+The API is then available at `http://localhost:8000` (`/docs` for the interactive Swagger UI) and the frontend at `http://localhost:5173`.
 
-To rebuild the image after changing `pyproject.toml`/`poetry.lock` or the `Dockerfile`:
+To rebuild the backend image after changing `pyproject.toml`/`poetry.lock` or its `Dockerfile`:
 
 ```bash
 docker compose build backend
 docker compose up
+```
+
+To rebuild the frontend image after changing `package.json`/`package-lock.json` or its `Dockerfile`, also renew the anonymous `node_modules` volume (otherwise the container keeps the old dependencies):
+
+```bash
+docker compose up --build -V frontend
 ```
 
 To reset the database (wipes all data):
@@ -102,6 +108,18 @@ Prerequisites: Poetry
 
 The API is then available at `http://127.0.0.1:8000`.
 
+### Frontend
+
+Prerequisites: Node.js 24 (see [Prerequisites](#prerequisites)).
+
+```bash
+cd frontend
+npm ci
+npm run dev
+```
+
+The frontend is then available at `http://localhost:5173`. Other scripts: `npm run lint` (ESLint) and `npm run build` (type check with `tsc`, then production build).
+
 ## Project structure
 
 ```
@@ -135,7 +153,20 @@ kaleidogram/
 │       ├── routers/       # API endpoints, one module per resource
 │       ├── schemas/       # Pydantic schemas (validation/serialization)
 │       └── utils/         # Security helpers (password hashing, JWT)
-└── frontend/               # Not initialized yet (React + Vite + TypeScript planned)
+└── frontend/               # React + Vite + TypeScript
+    ├── Dockerfile
+    ├── .dockerignore
+    ├── package.json
+    ├── package-lock.json
+    ├── vite.config.ts
+    ├── eslint.config.js
+    ├── tsconfig*.json
+    ├── index.html
+    ├── public/
+    └── src/
+        ├── main.tsx       # React entry point
+        ├── App.tsx        # Root component
+        └── index.css
 ```
 
 ## Git workflow
