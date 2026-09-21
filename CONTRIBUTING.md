@@ -154,6 +154,7 @@ kaleidogram/
 │       ├── schemas/       # Pydantic schemas (validation/serialization)
 │       └── utils/         # Security helpers (password hashing, JWT)
 └── frontend/               # React + Vite + TypeScript
+    ├── CLAUDE.md          # Frontend-specific conventions
     ├── Dockerfile
     ├── .dockerignore
     ├── package.json
