@@ -1,9 +1,6 @@
-.connexion {
+.main-icon {
     background-color: var(--couleur-principale);
     color: white;
     border-radius: 10px;
-}
-
-.connexion:hover {
-    background-color: var(--couleur-principale-survol);
+    padding: 5px;
 }

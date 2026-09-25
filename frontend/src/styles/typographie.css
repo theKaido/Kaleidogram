@@ -1,0 +1,12 @@
+body {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    background-color: var(--couleur-fond);
+}
+
+.lien-action {
+    color: var(--couleur-principale);
+}
+
+.lien-action:hover {
+    color: var(--couleur-principale-survol);
+}
