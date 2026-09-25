@@ -2,9 +2,12 @@ import { PiForkKnife } from "react-icons/pi";
 import { FcGoogle } from "react-icons/fc";
 import { CiMail } from "react-icons/ci";
 import { FiLock } from "react-icons/fi";
-import { IoMdEye } from "react-icons/io";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import {useState} from 'react'
+
 
 function Login() {
+    const [showPassword, setShowPassword] = useState(false)
     return (
         <div className="container-fluid">
             <div className="row">
@@ -43,13 +46,18 @@ function Login() {
                             </span>
                             <input
                                 id="main-password"
-                                type="password"
+                                type={showPassword ? 'text' : 'password'}
                                 className="form-control"
                                 placeholder="************"
                             />
-                            <span className="input-group-text" id="show-password">
-                                <IoMdEye size={20}/>
-                            </span>
+                            <button
+                                type="button"
+                                className="input-group-text"
+                                id="show-password"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <IoMdEyeOff size={20}/> : <IoMdEye size={20} /> }
+                            </button>
                         </div>
                         <div className="d-flex justify-content-between w-100 mt-2">
                             <div className="d-flex align-items-center justify-content-center gap-1">
