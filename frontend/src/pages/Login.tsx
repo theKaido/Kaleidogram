@@ -57,11 +57,11 @@ function Login() {
                             </div>
                         </div>
                         <div>
-                            <button type="button" className="btn btn-secondary">Se connecter</button>
+                            <button type="button" className="btn connexion">Se connecter</button>
                         </div>
                         <div>
                             <p>Nouveau sur Kaleidogram ?</p>
-                            <a type="button" className="btn btn-secondary" href="https://github.com/theKaido/Kaleidogram">Créer un compte</a>
+                            <a type="text" href="https://github.com/theKaido/Kaleidogram">Créer un compte</a>
                         </div>
                     </div>
                 </div>
