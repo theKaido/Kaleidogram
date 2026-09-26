@@ -12,11 +12,11 @@ function Login() {
     return (
         <div className="container-fluid">
             <div className="row">
-                <div className="col">
+                <div className="col d-none d-md-block">
                     <Illustration/>
                 </div>
-                <div className="col d-flex flex-column justify-content-center align-items-center vh-100">
-                    <div className="d-flex flex-column align-items-center w-50">
+                <div className="col d-flex flex-column justify-content-center align-items-center min-vh-100">
+                    <div className="d-flex flex-column align-items-center login-form">
                         <h2 className="fw-bold"><PiForkKnife className="main-icon"/> Kaleidogram</h2>
                         <p className="mt-2">Identifiez les allergènes en un coup d'oeil</p>
                         <button
@@ -25,7 +25,7 @@ function Login() {
                         >
                                 <FcGoogle/>Se connecter avec Google
                         </button>
-                        <div className="d-flex align-items-center w-100 m-5">
+                        <div className="d-flex align-items-center w-100 my-5">
                             <hr className="flex-grow-1" />
                             <b className="mx-2">OU PAR EMAIL</b>
                             <hr className="flex-grow-1" />

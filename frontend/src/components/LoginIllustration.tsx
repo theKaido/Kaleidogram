@@ -2,7 +2,7 @@ import { PiStarFourLight } from "react-icons/pi";
 
 function Illustration() {
     return (
-        <div className="col d-flex flex-column justify-content-between align-items-center vh-100 p-4">
+        <div className="col d-flex flex-column justify-content-between align-items-center min-vh-100 p-4">
             <div className="d-flex align-items-center align-self-start main-page-illustration gap-1">
                 <PiStarFourLight/>
                 <p className="text-uppercase mb-0">Alimentation & sécurité</p>
