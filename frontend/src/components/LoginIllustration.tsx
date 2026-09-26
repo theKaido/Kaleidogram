@@ -7,10 +7,13 @@ function Illustration() {
                 <PiStarFourLight/>
                 <p className="text-uppercase mb-0">Alimentation & sécurité</p>
             </div>
-            <div>milieu</div>
+            <div className="illustration-rond"></div>
             <div className="align-self-start">
                 <h4 className="fw-bold">Vos allergènes, à un scan de vos clients</h4>
-                <p className="main-page-illustration w-75">Renseignez les allergènes de chaque plat et affichez un seul QR code : vos clients consultent la liste depuis leur téléphone.</p>
+                <p className="main-page-illustration w-75">
+                    Renseignez les allergènes de chaque plat et affichez un seul
+                    QR code : vos clients consultent la liste depuis leur téléphone.
+                </p>
             </div>
         </div>
     )

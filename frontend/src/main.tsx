@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './styles/illustration.css'
 import './styles/typographie.css'
 import './styles/variables.css'
 import './styles/logo-icons.css'

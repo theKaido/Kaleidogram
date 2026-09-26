@@ -1,17 +1,16 @@
-import {useState} from "react"
 import Illustration from "../components/LoginIllustration.tsx"
-import Authentification from "../components/AuthentificationForm.tsx"
+import AuthentificationForm from "../components/AuthentificationForm.tsx"
 
 
 function Login() {
     return (
         <div className="container-fluid">
             <div className="row">
-                <div className="col d-none d-md-block">
+                <div className="col d-none d-md-block illustration-fond">
                     <Illustration/>
                 </div>
                 <div className="col d-flex flex-column justify-content-center align-items-center min-vh-100">
-                    <Authentification/>
+                    <AuthentificationForm/>
                 </div>
             </div>
         </div>

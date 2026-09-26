@@ -2,5 +2,8 @@
     --couleur-principale: #1E5631;
     --couleur-principale-survol: forestgreen;
 
-    --couleur-fond:#FBFAF5;
+    --couleur-fond: #FBFAF5;
+
+    --couleur-gradient-principal: #F0F5EF;
+    --couleur-gradient-secondaire: #F8E9E2;
 }

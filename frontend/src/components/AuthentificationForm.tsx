@@ -5,7 +5,7 @@ import { FiLock } from "react-icons/fi";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import {useState} from "react";
 
-function Authentification() {
+function AuthentificationForm() {
     const [showPassword, setShowPassword] = useState(false)
     return (
          <div className="d-flex flex-column align-items-center login-form">
@@ -88,4 +88,4 @@ function Authentification() {
     )
 }
 
-export default Authentification
+export default AuthentificationForm

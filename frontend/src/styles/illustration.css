@@ -1,0 +1,15 @@
+.illustration-rond {
+    width: 50%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid lightgray;
+}
+
+.illustration-fond {
+    background: linear-gradient(
+            to bottom right,
+            var(--couleur-gradient-principal),
+            var(--couleur-gradient-secondaire)
+    );
+}
