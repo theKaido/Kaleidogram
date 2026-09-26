@@ -3,7 +3,8 @@ import { FcGoogle } from "react-icons/fc";
 import { CiMail } from "react-icons/ci";
 import { FiLock } from "react-icons/fi";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import {useState} from 'react'
+import {useState} from "react"
+import Illustration from "../components/LoginIllustration.tsx"
 
 
 function Login() {
@@ -11,7 +12,9 @@ function Login() {
     return (
         <div className="container-fluid">
             <div className="row">
-                <div className="col">Illustration</div>
+                <div className="col">
+                    <Illustration/>
+                </div>
                 <div className="col d-flex flex-column justify-content-center align-items-center vh-100">
                     <div className="d-flex flex-column align-items-center w-50">
                         <h2 className="fw-bold"><PiForkKnife className="main-icon"/> Kaleidogram</h2>

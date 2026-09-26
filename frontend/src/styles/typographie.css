@@ -10,3 +10,7 @@ body {
 .lien-action:hover {
     color: var(--couleur-principale-survol);
 }
+
+.main-page-illustration {
+    color: var(--couleur-principale)
+}
