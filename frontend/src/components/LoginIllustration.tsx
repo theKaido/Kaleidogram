@@ -7,7 +7,14 @@ function Illustration() {
                 <PiStarFourLight/>
                 <p className="text-uppercase mb-0">Alimentation & sécurité</p>
             </div>
-            <div className="illustration-rond"></div>
+            <div className="illustration-rond illustration-container">
+                <div className="cercle-orange">
+                    <div className="halo-cercle-orange"></div>
+                </div>
+                <div className="cercle-vert-transparent">
+                    <div className="cercle-vert"></div>
+                </div>
+            </div>
             <div className="align-self-start">
                 <h4 className="fw-bold">Vos allergènes, à un scan de vos clients</h4>
                 <p className="main-page-illustration w-75">
