@@ -55,7 +55,88 @@
     background-color: var(--couleur-allergene-vert-2);
 }
 
+.triangle-jaune {
+    position: absolute;
+    top: 31%;
+    left: 36%;
+    width: 25%;
+    clip-path: polygon(0% 35%, 100% 0%, 74% 100%);
+    background-color: var(--couleur-allergene-jaune-1);
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.hexagone-bleu {
+    position: absolute;
+    top: 55%;
+    left: 60%;
+    width: 25%;
+    clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+    background-color: var(--couleur-allergene-bleu-1);
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.green-dot{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: var(--couleur-principale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pastille-icone{
+    position: relative;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pastille {
+    position: relative;
+    border-radius: 50rem;
+    padding: 6px 14px 6px 6px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    white-space: nowrap;
+}
 .illustration-container {
     position: relative;
+}
+
+.pastille-gluten {
+    top: -6%;
+    left: 2%;
+}
+
+.pastille-arachides {
+    top: 4%;
+    right: -6%;
+}
+
+.pastille-lactose {
+    bottom: 6%;
+    left: -10%;
+}
+
+.pastille-sulfate {
+    bottom: -6%;
+    right: 6%;
 }
