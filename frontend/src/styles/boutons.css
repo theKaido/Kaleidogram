@@ -1,0 +1,9 @@
+.connexion {
+    background-color: var(--couleur-principale);
+    color: white;
+    border-radius: 10px;
+}
+
+.connexion:hover {
+    background-color: var(--couleur-principale-survol);
+}

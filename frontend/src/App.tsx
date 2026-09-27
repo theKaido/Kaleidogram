@@ -1,5 +1,9 @@
+import Login from './pages/Login.tsx'
+
 function App() {
-    return <h1>Kaleidogram</h1>
+    return (
+        <Login />
+    )
 }
 
 export default App

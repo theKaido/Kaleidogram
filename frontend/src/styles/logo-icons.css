@@ -1,0 +1,6 @@
+.main-icon {
+    background-color: var(--couleur-principale);
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+}
