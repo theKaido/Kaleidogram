@@ -43,3 +43,16 @@ jobs:
       - uses: snok/install-poetry@v1
       - run: poetry install
       - run: poetry run pytest
+
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm ci
+      - run: npx vitest run
