@@ -49,6 +49,7 @@ function AuthentificationForm() {
                     type="button"
                     className="input-group-text"
                     id="show-password"
+                    aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
                     onClick={() => setShowPassword(!showPassword)}
                 >
                     {showPassword ? <IoMdEyeOff size={20}/> : <IoMdEye size={20} /> }
