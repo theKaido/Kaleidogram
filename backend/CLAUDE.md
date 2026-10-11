@@ -52,10 +52,9 @@ kaleidogram/
 ├── .gitignore
 ├── docker-compose.yaml
 ├── .github/
-│   └── workflows/                  # CI: lint, tests, develop-branch checks
-│       ├── develop.yml
-│       ├── lint.yml
-│       └── tests.yml
+│   └── workflows/                  # CI on push, filtered by changed paths
+│       ├── backend.yml
+│       └── frontend.yml
 └── backend/
     ├── CLAUDE.md
     ├── Dockerfile
