@@ -1,0 +1,53 @@
+name: CI
+
+on:
+    push:
+        branches-ignore:
+            - develop
+            - main
+
+concurrency:
+    group: ci-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    changes:
+        runs-on: ubuntu-latest
+        outputs:
+            backend: ${{ steps.filter.outputs.backend }}
+            frontend: ${{ steps.filter.outputs.frontend }}
+        steps:
+            - uses: actions/checkout@v4
+            - uses: dorny/paths-filter@v3
+              id: filter
+              with:
+                  base: develop
+                  filters: |
+                      backend:
+                          - "backend/**"
+                          - ".github/workflows/backend.yml"
+                          - ".github/workflows/ci.yml"
+                      frontend:
+                          - "frontend/**"
+                          - ".github/workflows/frontend.yml"
+                          - ".github/workflows/ci.yml"
+
+    backend:
+        needs: changes
+        if: needs.changes.outputs.backend == 'true'
+        uses: ./.github/workflows/backend.yml
+        secrets: inherit
+
+    frontend:
+        needs: changes
+        if: needs.changes.outputs.frontend == 'true'
+        uses: ./.github/workflows/frontend.yml
+
+    ci-ok:
+        needs: [changes, backend, frontend]
+        if: always()
+        runs-on: ubuntu-latest
+        steps:
+            - if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+              run: exit 1
+            - run: echo "All required jobs passed or were skipped"
