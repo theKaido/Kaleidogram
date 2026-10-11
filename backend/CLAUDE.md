@@ -52,10 +52,11 @@ kaleidogram/
 ├── .gitignore
 ├── docker-compose.yaml
 ├── .github/
-│   └── workflows/                  # CI on push, filtered by changed paths
-│       ├── backend.yml
+│   └── workflows/                  # GitHub Actions
+│       ├── ci.yml          # on branch push: runs changed stacks, ci-ok gate
 │       ├── develop.yml     # full run after each merge into develop
-│       └── frontend.yml
+│       ├── backend.yml     # reusable: ruff, pytest, docker build
+│       └── frontend.yml    # reusable: lint, vitest, build, docker build
 └── backend/
     ├── CLAUDE.md
     ├── Dockerfile

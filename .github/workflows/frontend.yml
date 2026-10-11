@@ -1,18 +1,7 @@
 name: Frontend
 
 on:
-    push:
-        branches-ignore:
-            - develop
-            - main
-        paths:
-            - "frontend/**"
-            - ".github/workflows/frontend.yml"
     workflow_call:
-
-concurrency:
-    group: frontend-${{ github.ref }}
-    cancel-in-progress: true
 
 jobs:
     lint:
