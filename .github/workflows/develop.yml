@@ -1,0 +1,18 @@
+name: Develop
+
+on:
+    push:
+        branches:
+            - develop
+
+concurrency:
+    group: develop-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    backend:
+        uses: ./.github/workflows/backend.yml
+        secrets: inherit
+
+    frontend:
+        uses: ./.github/workflows/frontend.yml

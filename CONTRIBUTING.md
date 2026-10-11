@@ -141,6 +141,7 @@ kaleidogram/
 ├── .github/
 │   └── workflows/         # CI on push, filtered by changed paths
 │       ├── backend.yml
+│       ├── develop.yml     # full run after each merge into develop
 │       └── frontend.yml
 ├── backend/
 │   ├── CLAUDE.md          # Backend-specific conventions
