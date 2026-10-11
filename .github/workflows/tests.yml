@@ -1,58 +1,62 @@
 name: Tests
 
 on:
-  pull_request:
-    branches:
-      - develop
+    pull_request:
+        branches:
+            - develop
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
-  pytest:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
+    pytest:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: backend
 
-    services:
-      postgres:
-        image: postgres:16
+        services:
+            postgres:
+                image: postgres:16
+                env:
+                    POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+                    POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+                    POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+                ports:
+                    - 5432:5432
+                options: >-
+                    --health-cmd pg_isready
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
+
         env:
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+            POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+            POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+            POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+            DATABASE_URL: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
+            JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+            JWT_ALGORITHM: ${{ secrets.JWT_ALGORITHM }}
 
-    env:
-      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-      DATABASE_URL: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
-      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-      JWT_ALGORITHM: ${{ secrets.JWT_ALGORITHM }}
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-python@v5
+              with:
+                  python-version: "3.14"
+            - uses: snok/install-poetry@v1
+            - run: poetry install
+            - run: poetry run pytest
 
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.14"
-      - uses: snok/install-poetry@v1
-      - run: poetry install
-      - run: poetry run pytest
-
-  test:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-      - run: npm ci
-      - run: npx vitest run
+    test:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: frontend
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: "24"
+            - run: npm ci
+            - run: npx vitest run
