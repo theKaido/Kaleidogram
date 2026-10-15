@@ -1,8 +1,8 @@
 import Illustration from "../components/LoginIllustration.tsx"
-import AuthentificationForm from "../components/AuthentificationForm.tsx"
+import { Outlet } from "react-router"
 
 
-function Login() {
+function AuthLayout() {
     return (
         <div className="container-fluid">
             <div className="row">
@@ -10,11 +10,11 @@ function Login() {
                     <Illustration/>
                 </div>
                 <div className="col d-flex flex-column justify-content-center align-items-center min-vh-100">
-                    <AuthentificationForm/>
+                    <Outlet/>
                 </div>
             </div>
         </div>
     )
 }
 
-export default Login
+export default AuthLayout
